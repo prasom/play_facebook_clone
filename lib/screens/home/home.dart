@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:play_facebook_clone/screens/home/new_post.dart';
 import 'package:play_facebook_clone/widgets/avatar_widget.dart';
 
 class Home extends StatefulWidget {
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> {
                 // ),
               ),
               new SliverList(
-                delegate: new SliverChildListDelegate(_buildPostBlock()),
+                delegate: new SliverChildListDelegate(_buildPostBlock(context)),
               ),
               new SliverList(
                 delegate: new SliverChildListDelegate(_buildStoryBlock()),
@@ -80,7 +81,7 @@ class _HomeState extends State<Home> {
   }
 }
 
-List _buildPostBlock() {
+List _buildPostBlock(context) {
   List<Widget> listItems = List();
   listItems.add(
     new Container(
@@ -99,6 +100,7 @@ List _buildPostBlock() {
                 FlatButton(
                   onPressed: () {
                     /*...*/
+                    _openAddEntryDialog(context);
                   },
                   child: Text('นายคิดอะไรอยู่?'),
                 ),
@@ -167,6 +169,14 @@ List _buildPostBlock() {
     ),
   );
   return listItems;
+}
+
+void _openAddEntryDialog(context) {
+  Navigator.of(context).push(new MaterialPageRoute<Null>(
+      builder: (BuildContext context) {
+        return NewPost();
+      },
+      fullscreenDialog: true));
 }
 
 List _buildStoryBlock() {
